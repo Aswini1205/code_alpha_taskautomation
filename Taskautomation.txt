@@ -1,0 +1,32 @@
+import pandas as pd
+from datetime import datetime
+
+# Sample data (simulating CSV content)
+data = {
+    "Industry": ["Tech", "Finance", "Health", "Tech", "Finance", None],
+    "Statistical Area": [200, 150, 100, 200, None, 250],
+    "Employees": [5000, 3000, 2000, 5000, 3500, 1800]
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Drop duplicates
+df.drop_duplicates(inplace=True)
+
+# Handle missing values (remove rows with missing values)
+df.dropna(inplace=True)
+
+# Standardize column names (lowercase and replace spaces with underscores)
+df.columns = df.columns.str.lower().str.replace(" ", "_")
+
+# Sort data in descending order by 'statistical_area'
+df.sort_values(by="statistical_area", ascending=False, inplace=True)
+
+# Generate cleaned file name with timestamp
+timestamp = datetime.now().strftime("%B-%Y-%d-%H%M")
+cleaned_file_name = f"cleaned_geographic-units-by-industry-and-statistical-area-2000-2023-descending-order-{timestamp}.CSV"
+
+# Print final cleaned DataFrame
+print(f"Data has been cleaned and will be saved as: {cleaned_file_name}\n")
+print(df)
